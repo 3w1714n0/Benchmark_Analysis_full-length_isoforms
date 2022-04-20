@@ -1,7 +1,9 @@
 # Benchmark analysis
 Here I present the programs and the steps for carrying out a benchmark analysis for determining full-length mRNA isoforms by Nanopore RNA-seq data.
 
-# Table of Contents
+---
+
+**Table of Contents**
 - [Input data](#input-data)
 - [Programs](#programs)
   - [flair](#flair)
@@ -9,6 +11,8 @@ Here I present the programs and the steps for carrying out a benchmark analysis 
   - [CARNAC-LR](#carnac-lr)
   - [RATTLE](#rattle)
   - [cufflinks](#cufflinks)
+
+---
 
 ## Input data
 
