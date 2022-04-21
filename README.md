@@ -3,7 +3,7 @@ Here I present the programs and the steps for carrying out a benchmark analysis 
 
 ---
 
-# Table of Contents
+## Table of Contents
 - [Input data](#input-data)
 - [Programs](#programs)
   - [flair](#flair)
