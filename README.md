@@ -1,4 +1,4 @@
-# Benchmark analysis
+# Benchmark analysis for Nano-determining full-length isoforms
 Here I present the programs and the steps for carrying out a benchmark analysis for determining full-length mRNA isoforms by Nanopore RNA-seq data.
 
 ---
