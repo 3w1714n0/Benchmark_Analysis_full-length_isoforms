@@ -16,6 +16,10 @@ Here I present the programs and the steps for carrying out a benchmark analysis 
 
 ## Input data
 
+As for the datasets to perform a pre-screening study for this benchmark analysis, I have decided to use ***sequins***, synthetic RNA standards, available thanks to the [Garvan Institute of Medical Research](https://www.sequinstandards.com/).
+
+---
+
 ## Programs
 
 ### flair
