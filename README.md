@@ -32,7 +32,7 @@ For this initial analysis, I downloaded the following datasets:
 To highlight the differences between Illumina and Nanopore reads, I have plotted the read length distributions for each sequencing method, using the following command to obtain the read lengths:
 
 ```bash
-awk 'NR%4 == 2 {lengths[length($0)]++ ; counter++} END {for (l in lengths) {print l, lengths[l]}}' file.fastq >> file_with_read_lengths.txt
+awk 'NR%4 == 2 {lengths[length($0)]++ ; counter++} {for (l in lengths) {print l, lengths[l]}}' file.fastq >> file_with_read_lengths.txt
 ```
 ---
 
