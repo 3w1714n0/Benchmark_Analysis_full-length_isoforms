@@ -20,10 +20,10 @@ reads_Ilum$V2
 #Nanopore total reads
 sum(reads_Nano$V2)
 
-# 2. Read the merged data
+# 2. Read merged data
 ld <- read.csv(file="length_distribution.txt", sep="", header=FALSE)
 
-# 3. Plotting the length distribution
+# 3. Plot the length distribution
 library(ggplot2)
 
 ggplot(ld, mapping = aes(x = order(as.integer(V2)), y = V3, fill = V4))+
