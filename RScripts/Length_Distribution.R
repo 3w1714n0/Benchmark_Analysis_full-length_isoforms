@@ -30,6 +30,6 @@ ggplot(ld, mapping = aes(x = order(as.integer(V2)), y = V3, fill = V4))+
   geom_bar(stat = "identity", width = 4)+
   theme_bw()+
   scale_fill_manual(values = c("#d40048","#2cc0e5"))+
-  labs(x = "Read length", y="Number of reads")+
+  labs(x = "Read length (pb)", y = "Number of reads")+
   facet_grid(row = vars(V4), scales = "free")+
   theme(legend.position = "none")
