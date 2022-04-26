@@ -34,6 +34,11 @@ To highlight the differences between Illumina and Nanopore reads, I have plotted
 ```bash
 awk 'NR%4 == 2 {lengths[length($0)]++ ; counter++} END {for (l in lengths) {print l, lengths[l]}}' file.fastq >> file_with_read_lengths.txt
 ```
+
+Once I obtained the length of the reads and their frequencies, using an [RScript](https://github.com/3w1714n0/Benchmark_Analysis_full-length_isoforms/blob/main/RScripts/Length_Distribution.R), I made the comparative graph to observe the differences, obtaining the following graph:
+
+![Edited](https://user-images.githubusercontent.com/82102364/165273650-11073efd-c725-4a63-af37-ec31b0036f86.png)
+
 ---
 
 ## Programs
