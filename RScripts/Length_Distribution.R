@@ -32,5 +32,4 @@ ggplot(ld, mapping = aes(x = order(as.integer(V2)), y = V3, fill = V4))+
   scale_fill_manual(values = c("#d40048","#2cc0e5"))+
   labs(x = "Read length", y="Number of reads")+
   facet_grid(row = vars(V4), scales = "free")+
-  theme(legend.position = "none")+
-  xlim(0,2200)
+  theme(legend.position = "none")
