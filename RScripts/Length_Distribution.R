@@ -2,7 +2,7 @@
 ### Emiliano Navarro, 2022
 
 # Clean workspace
-rm(list= ls())
+rm(list = ls())
 
 # Set working directory
 setwd("C:/Users/enava/OneDrive - Universitat Autònoma de Barcelona/CUARTO/TFG/Análisis/sequins")
