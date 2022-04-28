@@ -32,7 +32,7 @@ For this initial analysis, I downloaded the following datasets:
 
 ### Read Length Distribution
 
-To highlight the differences between Illumina and Nanopore reads, I have plotted the read length distributions for each sequencing method, using the following command to obtain the read lengths:
+To highlight the differences between Illumina and Oxford Nanopore reads, I have plotted the read length distributions for each sequencing method, using the following command to obtain the read lengths:
 
 ```bash
 awk 'NR%4 == 2 {lengths[length($0)]++ ; counter++} END {for (l in lengths) {print l, lengths[l]}}' file.fastq >> file_with_read_lengths.txt
@@ -48,7 +48,7 @@ We can observe that the difference in the average read lengths, since, while for
 
 ## Programs
 
-As for the programmes used to carry out this benchmarking analysis, I have chosen 4 of the most recent algorithms that allow the analysis of RNA-seq data using Nanopore.
+As for the programmes used to carry out this benchmarking analysis, I have chosen 4 of the most recent algorithms that allow the analysis of RNA-seq data using Oxford Nanopore Technology.
 These can be divided into:
 - Reference-guided algorithms:
   - [flair](#flair)
@@ -59,11 +59,41 @@ These can be divided into:
 
 In addition to these 4 that allow the use of dRNA-seq data, I will also use [Cufflinks](#cufflinks) to highlight possible differences with isoform detection using programmes that use Illumina data as input. 
 
+
+> **Note:** 
+> All programs that featured a Docker/Singularity image or Conda package have been installed in this way to facilitate the replicability of the results obtained in this analysis.
+
+---
+
 ### Reference-guided algorithms
 
 #### flair
 
+[FLAIR](https://github.com/BrooksLabUCSC/flair) (Full-Length Alternative Isoform analysis of RNA) is an algorithm for the correction, isoform definition and alternative splicing analysis of noisy reads that has been used mainly for native RNA developed by [Tang et al. (2018)](https://www.biorxiv.org/content/early/2018/09/06/410183).
+FLAIR uses multiple alignment steps and splice site filters to increase confidence in the set of isoforms defined from noisy data. FLAIR was designed to be able to sense subtle splicing changes in nanopore data.
+ 
+ <img src='https://people.ucsc.edu/~atang14/flair/flair_workflow_compartmentalized.png' alt='flair workflow' width='680'/>
+ 
+As we can see in the image above, this algorithm has multiple modules to follow.
+
+##### flair align
+
+##### flair correct ??
+
+##### flair collapse
+
+##### flair quantify
+
+##### flair diffExp
+
+##### flair diffSplice
+
+---
+
 #### bambu
+
+
+---
 
 ### *De novo* reconstruction algorithms
 
