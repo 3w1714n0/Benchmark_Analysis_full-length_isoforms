@@ -82,12 +82,6 @@ As we can see in the image above, this algorithm has multiple modules to follow.
 
 ##### flair collapse
 
-##### flair quantify
-
-##### flair diffExp
-
-##### flair diffSplice
-
 ---
 
 #### bambu
