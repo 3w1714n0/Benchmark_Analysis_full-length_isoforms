@@ -7,11 +7,14 @@ Here I present the programs and the steps for carrying out a benchmark analysis 
 - [Input data](#input-data)
   - [Read Length Distribution](#read-length-distribution)
 - [Programs](#programs)
-  - [flair](#flair)
-  - [bambu](#bambu)
-  - [CARNAC-LR](#carnac-lr)
-  - [RATTLE](#rattle)
-  - [cufflinks](#cufflinks)
+  - [Reference-guided algorithms](#reference-guided-algorithms)
+    - [flair](#flair)
+    - [bambu](#bambu)
+  - [*De novo* reconstruction algorithms](#de-novo-reconstruction-algorithms)
+    - [CARNAC-LR](#carnac-lr)
+    - [RATTLE](#rattle)
+  - [Illumina algorithm](#illumina-algorithm)
+    - [cufflinks](#cufflinks)
 
 ---
 
@@ -39,16 +42,35 @@ Once I obtained the length of the reads and their frequencies, using an [RScript
 
 ![Edited](https://user-images.githubusercontent.com/82102364/165273650-11073efd-c725-4a63-af37-ec31b0036f86.png)
 
+We can observe that the difference in the average read lengths, since, while for Illumina we have a large number of reads of the same size (125 bp) for Nanopore we obtain a much lower performance, with fewer reads, but of a much greater length (917 bp), although it is true that the variability is very wide, obtaining reads ranging from 5 bp to ~3 kb, but for our preliminary analysis this is fine.
+
 ---
 
 ## Programs
 
-### flair
+As for the programmes used to carry out this benchmarking analysis, I have chosen 4 of the most recent algorithms that allow the analysis of RNA-seq data using Nanopore.
+These can be divided into:
+- Reference-guided algorithms:
+  - [flair](#flair)
+  - [bambu](#bambu)
+- *De novo* reconstruction algorithms:
+  - [CARNAC-LR](#carnac-lr)   
+  - [RATTLE](#rattle)
 
-### bambu
+In addition to these 4 that allow the use of dRNA-seq data, I will also use [Cufflinks](#cufflinks) to highlight possible differences with isoform detection using programmes that use Illumina data as input. 
 
-### CARNAC-LR
+### Reference-guided algorithms
 
-### RATTLE
+#### flair
 
-### cufflinks
+#### bambu
+
+### *De novo* reconstruction algorithms
+
+#### CARNAC-LR
+
+#### RATTLE
+
+### Illumina algorithm
+
+#### cufflinks
