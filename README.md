@@ -24,8 +24,10 @@ As for the datasets to perform a pre-screening study for this benchmark analysis
 
 For this initial analysis, I downloaded the following datasets:
 - **Reference files**:
+  - [rnasequin_decoychr_2.4.fa.gz](https://sequins.s3.amazonaws.com/website/rna_resources/rnasequin_decoychr_2.4.fa.gz) - decoy chromosome (chrIS) sequence the encodes all synthetic sequin gene loci (10Mb).
   - [rnasequin_annotation_2.4.gtf](https://sequins.s3.amazonaws.com/website/rna_resources/rnasequin_annotation_2.4.gtf) – annotation of sequin genes/isoforms on the decoy chromosome (120kb).
   - [rnasequin_sequences_2.4.fa](https://sequins.s3.amazonaws.com/website/rna_resources/rnasequin_sequences_2.4.fa) – sequences of all sequin isoforms (213kb).
+  - [rnasequin_isoforms_2.4.tsv](https://sequins.s3.amazonaws.com/website/rna_resources/rnasequin_isoforms_2.4.tsv) – expected concentration (expression) of each sequin isoform in mixture (5kb).
 - **Example libraries**:
   - [K562_SequinMixA.Rep2.R1.fq.gz](https://s3.amazonaws.com/sequins/website/libraries/K562_SequinMixA.Rep2.R1.fq.gz) (2.5Gb): Sequins (RNA  mixture A) was added to RNA extract from the K562 cell type. The sample then underwent library preparation (using the KAPA Stranded mRNA-Seq) and sequencing (using the **Illumina HiSeq 2500**).
   - [k562sequins_dRNA_albacore2.1.3.tar.gz](https://s3.amazonaws.com/sequins/website/rna_resources/k562sequins_dRNA_albacore2.1.3.tar.gz) (33Mb): RNA sequins (Mixture A) was added to 500ng total RNA extract from the K562 cell type. The sample then underwent sequencing using **Nanopore MinION flowcell** (R9.4 chemistry), displayed 1323 active channels at commencement of run. Used sequencing protocol RNA001. Base called with Albacore version 2.1.3.
@@ -74,11 +76,11 @@ FLAIR uses multiple alignment steps and splice site filters to increase confiden
  
  <img src='https://people.ucsc.edu/~atang14/flair/flair_workflow_compartmentalized.png' alt='flair workflow' width='680'/>
  
-As we can see in the image above, this algorithm has multiple modules to follow.
+As we can see in the image above, this algorithm has multiple modules to follow, so I will therefore show below the commands I have used to carry out the analysis.
 
 ##### flair align
 
-##### flair correct ??
+##### flair correct
 
 ##### flair collapse
 
