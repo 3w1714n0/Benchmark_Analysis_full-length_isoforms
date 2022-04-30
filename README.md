@@ -140,9 +140,9 @@ To carry out the analysis using bambu, just run the [Rscript](https://github.com
 > See the [bambu repository](https://github.com/GoekeLab/bambu) for further information.
 
 Once the script is executed, three files are obtained
-- counts_gene.txt: a tab-delimited file with the counts per gene.
-- counts_transcript.txt: a tab-delimited file with counts per transcript.
-- extended_annotations.gtf: a tab-delimited file with the annotations made by the programme.
+- **counts_gene.txt**: a tab-delimited file with the counts per gene.
+- **counts_transcript.txt**: a tab-delimited file with counts per transcript.
+- **extended_annotations.gtf**: a tab-delimited file with the annotations made by the programme.
 
 ---
 
