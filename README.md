@@ -13,7 +13,7 @@ Here I present the programs and the steps for carrying out a benchmark analysis 
   - [*De novo* reconstruction algorithms](#de-novo-reconstruction-algorithms)
     - [CARNAC-LR](#carnac-lr)
     - [RATTLE](#rattle)
-  - [Illumina algorithm](#illumina-algorithm)
+  - [Short-read algorithm](#short-read-algorithm)
     - [cufflinks](#cufflinks)
 
 ---
@@ -133,6 +133,16 @@ After all the analysis, we obtain a .gtf file with all the isoforms found by FLA
 
 #### bambu
 
+[***bambu***](https://github.com/GoekeLab/bambu) is a R package for multi-sample transcript discovery and quantification using long read RNA-Seq data. You can use bambu after read alignment to obtain expression estimates for known and novel transcripts and genes. The output from bambu can directly be used for visualisation and downstream analysis such as differential gene expression or transcript usage.
+
+To carry out the analysis using bambu, just run the [Rscript](https://github.com/3w1714n0/Benchmark_Analysis_full-length_isoforms/blob/main/RScripts/Bambu_Analysis.R).
+
+> See the [bambu repository](https://github.com/GoekeLab/bambu) for further information.
+
+Once the script is executed, three files are obtained
+- counts_gene.txt: a tab-delimited file with the counts per gene.
+- counts_transcript.txt: a tab-delimited file with counts per transcript.
+- extended_annotations.gtf: a tab-delimited file with the annotations made by the programme.
 
 ---
 
@@ -142,6 +152,6 @@ After all the analysis, we obtain a .gtf file with all the isoforms found by FLA
 
 #### RATTLE
 
-### Illumina algorithm
+### Short-read algorithm
 
 #### cufflinks
