@@ -118,7 +118,7 @@ In our case:
 
 Convenience function to quantifying FLAIR isoform usage across samples using minimap2, creating a manifest.tsv tab-separated file with the following structure:
 
-```
+```tsv
 sample1 conditionA  batch1  ./sample1_reads.fq
 ```
 Command to quantifying:
