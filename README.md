@@ -73,8 +73,9 @@ In addition to these 4 that allow the use of dRNA-seq data, I will also use [Cuf
 
 [FLAIR](https://github.com/BrooksLabUCSC/flair) (Full-Length Alternative Isoform analysis of RNA) is an algorithm for the correction, isoform definition and alternative splicing analysis of noisy reads that has been used mainly for native RNA developed by [Tang et al. (2018)](https://www.biorxiv.org/content/early/2018/09/06/410183).
 FLAIR uses multiple alignment steps and splice site filters to increase confidence in the set of isoforms defined from noisy data. FLAIR was designed to be able to sense subtle splicing changes in nanopore data.
- 
- <img src='https://people.ucsc.edu/~atang14/flair/flair_workflow_compartmentalized.png' alt='flair workflow' width='680'/>
+ <p align="center">
+  <img src='https://people.ucsc.edu/~atang14/flair/flair_workflow_compartmentalized.png' alt='flair workflow' width='680'/>
+</p>
  
 As we can see in the image above, this algorithm has multiple modules to follow, so I will therefore show below the commands I have used to carry out the analysis, but you can visit the [FLAIR repository](https://github.com/BrooksLabUCSC/flair) for further information.
 
