@@ -76,13 +76,57 @@ FLAIR uses multiple alignment steps and splice site filters to increase confiden
  
  <img src='https://people.ucsc.edu/~atang14/flair/flair_workflow_compartmentalized.png' alt='flair workflow' width='680'/>
  
-As we can see in the image above, this algorithm has multiple modules to follow, so I will therefore show below the commands I have used to carry out the analysis.
+As we can see in the image above, this algorithm has multiple modules to follow, so I will therefore show below the commands I have used to carry out the analysis, but you can visit the [FLAIR repository](https://github.com/BrooksLabUCSC/flair) for further information.
 
 ##### flair align
 
+Align reads.
+
+```bash
+singularity exec flair_latest.sif python3 ./flair/flair.py align -g genome.fa -r <reads.fq.gz>|<reads.fq>|<reads.fa> -nvra -o output_aligned
+```
+In our case:
+- g: rnasequin_decoychr_2.4.fa
+- r: k562+sequins_dRNA_albacore-2.1.3.fastq
+
 ##### flair correct
 
+Correct reads using an annotation file.
+
+```bash
+singularity exec flair_latest.sif python3 ./flair/flair.py correct -q output_aligned.bed -g genome.fa -f annotation.gtf -c chromsize.fa.fai -nvrna -o output_correct
+```
+In our case:
+- g: rnasequin_decoychr_2.4.fa
+- f: rnasequin_annotation_2.4.gtf
+- c: rnasequin_decoychr_2.4.fa.fai
+
 ##### flair collapse
+
+Defines high-confidence isoforms from corrected reads.
+
+```bash
+singularity exec flair_latest.sif python3 ./flair/flair.py collapse -g genome.fa -r <reads.fq>|<reads.fa> -f annotation.gtf -q output_corrected.bed --trust_ends
+```
+In our case:
+- g: rnasequin_decoychr_2.4.fa
+- r: k562+sequins_dRNA_albacore-2.1.3.fastq
+- f: rnasequin_annotation_2.4.gtf
+
+##### flair quantify
+
+Convenience function to quantifying FLAIR isoform usage across samples using minimap2, creating a manifest.tsv tab-separated file with the following structure:
+
+```
+sample1	conditionA	batch1	./sample1_reads.fq
+```
+Command to quantifying:
+
+```bash
+singularity exec flair_latest.sif python3 ./flair/flair.py quantify -r reads_manifest.tsv -i flair.collapse.isoforms.fa --trust_ends
+```
+
+After all the analysis, we obtain a .gtf file with all the isoforms found by FLAIR and a table with their quantification, which will be later compared with the quantifications of the sequins and the predictions made by the other programmes.
 
 ---
 
