@@ -11,7 +11,7 @@ Here I present the programs and the steps for carrying out a benchmark analysis 
     - [flair](#flair)
     - [bambu](#bambu)
   - [*De novo* reconstruction algorithms](#de-novo-reconstruction-algorithms)
-    - [CARNAC-LR](#carnac-lr)
+    - [isONclust](#isonclust)
     - [RATTLE](#rattle)
   - [Short-read algorithm](#short-read-algorithm)
     - [cufflinks](#cufflinks)
@@ -56,7 +56,7 @@ These can be divided into:
   - [flair](#flair)
   - [bambu](#bambu)
 - *De novo* reconstruction algorithms:
-  - [CARNAC-LR](#carnac-lr)   
+  - [isONclust](#isONclust)   
   - [RATTLE](#rattle)
 
 In addition to these 4 that allow the use of dRNA-seq data, I will also use [Cufflinks](#cufflinks) to highlight possible differences with isoform detection using programmes that use Illumina data as input. 
@@ -71,7 +71,7 @@ In addition to these 4 that allow the use of dRNA-seq data, I will also use [Cuf
 
 #### flair
 
-[FLAIR](https://github.com/BrooksLabUCSC/flair) (Full-Length Alternative Isoform analysis of RNA) is an algorithm for the correction, isoform definition and alternative splicing analysis of noisy reads that has been used mainly for native RNA developed by [Tang et al. (2018)](https://www.biorxiv.org/content/early/2018/09/06/410183).
+[***FLAIR***](https://github.com/BrooksLabUCSC/flair) (Full-Length Alternative Isoform analysis of RNA) is an algorithm for the correction, isoform definition and alternative splicing analysis of noisy reads that has been used mainly for native RNA developed by [Tang et al. (2018)](https://www.biorxiv.org/content/early/2018/09/06/410183).
 FLAIR uses multiple alignment steps and splice site filters to increase confidence in the set of isoforms defined from noisy data. FLAIR was designed to be able to sense subtle splicing changes in nanopore data.
  <p align="center">
   <img src='https://people.ucsc.edu/~atang14/flair/flair_workflow_compartmentalized.png' alt='flair workflow' width='680'/>
@@ -148,7 +148,8 @@ Once the script is executed, three files are obtained
 
 ### *De novo* reconstruction algorithms
 
-#### CARNAC-LR
+#### isONclust
+[***isONclust***](https://github.com/ksahlin/isONclust) is a tool for clustering either PacBio Iso-Seq reads, or Oxford Nanopore reads into clusters, where each cluster represents all reads that came from a gene. Output is a tsv file with each read assigned to a cluster-ID. Detailed information is available in the [GitHub website](https://github.com/ksahlin/isONclust) and in the [paper](https://link.springer.com/chapter/10.1007/978-3-030-17083-7_14).
 
 #### RATTLE
 
