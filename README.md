@@ -157,6 +157,9 @@ After the installation of the programme following the steps described in the [pr
 isONclust --ont --fastq reads.fastq --outfolder /path/to/output 
 ```
 
+In our case:
+- --fastq: **k562+sequins_dRNA_albacore-2.1.3.fastq**
+
 Once the analysis is finished, a . tsv file is obtained (`final_clusters.tsv`) in the directory we have indicated where the first column is the cluster ID and the second the read accession.
 
 #### RATTLE
@@ -164,3 +167,20 @@ Once the analysis is finished, a . tsv file is obtained (`final_clusters.tsv`) i
 ### Short-read algorithm
 
 #### cufflinks
+[**cufflinks**](https://github.com/cole-trapnell-lab/cufflinks) assembles transcripts, estimates their abundance and tests differential expression and regulation in RNA-Seq samples. It accepts aligned RNA-Seq reads and assembles the alignments into a parsimonious set of transcripts. Cufflinks then estimates the relative abundance of these transcripts based on the number of reads supported by each, taking into account biases in library preparation protocols.
+
+As cufflinks only accepts aligned RNA-Seq reads, we must first align the sequence obtained during sequencing with the reference genome with the [minimap2 program](https://github.com/lh3/minimap2), using the following command:
+
+```bash
+minimap2 -a reference.fa reads.fq > alignment.sam
+```
+
+In our case: 
+- reference.fa: **rnasequin_decoychr_2.4.fa**
+- reads.fq: **k562+sequins_dRNA_albacore-2.1.3.fastq**
+
+The next step is to change the format of the `aligment.sam` filo into `aligment.bam` format, by means of the [samtools program](https://github.com/samtools/samtools), using the following command:
+
+```bash
+samtools view -S -b aligment.sam > aligment.bam
+```
