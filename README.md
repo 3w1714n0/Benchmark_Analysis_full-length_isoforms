@@ -151,6 +151,14 @@ Once the script is executed, three files are obtained:
 #### isONclust
 [**isONclust**](https://github.com/ksahlin/isONclust) is a tool for clustering either PacBio Iso-Seq reads, or Oxford Nanopore reads into clusters, where each cluster represents all reads that came from a gene. Output is a tsv file with each read assigned to a cluster-ID. Detailed information is available in the [GitHub website](https://github.com/ksahlin/isONclust) and in the [paper](https://link.springer.com/chapter/10.1007/978-3-030-17083-7_14).
 
+After the installation of the programme following the steps described in the [programme repository](https://github.com/ksahlin/isONclust), the execution of the analysis with this software is very simple. To do so, simply execute the following command:
+
+```bash
+isONclust --ont --fastq reads.fastq --outfolder /path/to/output 
+```
+
+Once the analysis is finished, a . tsv file is obtained (`final_clusters.tsv`) in the directory we have indicated where the first column is the cluster ID and the second the read accession.
+
 #### RATTLE
 
 ### Short-read algorithm
