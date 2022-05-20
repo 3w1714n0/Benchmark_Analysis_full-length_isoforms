@@ -46,6 +46,15 @@ Once I obtained the length of the reads and their frequencies, using an [RScript
 
 We can observe that the difference in the average read lengths, since, while for Illumina we have a large number of reads of the same size (125 bp) for Nanopore we obtain a much lower performance, with fewer reads, but of a much greater length (917 bp), although it is true that the variability is very wide, obtaining reads ranging from 5 bp to ~3 kb, but for our preliminary analysis this is fine.
 
+In addition, I have performed an alignment of Illumina short reads and Nanopore long reads against the isoform reference in order to observe the differences in coverage and read length between the two methods.
+
+For this purpose I used Minimap2 to map both reads, converted the resulting SAM files to BAM and sorted and indexed them using samtools.
+
+![IGV alignments](https://user-images.githubusercontent.com/82102364/169590965-9e8f0be7-0268-4b83-9365-f547c1f22ddf.png)
+
+In this way we can observe that the Illumina reads are much shorter, since a single read does not cover the entire area of the sequin, while in Nanopore it does, although the coverage of the Illumina sample is much higher than that of Nanopore (32902 vs. 706).
+
+
 ---
 
 ## Programs
