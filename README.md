@@ -8,7 +8,7 @@ Here I present the programs and the steps for carrying out a benchmark analysis 
   - [Read Length Distribution](#read-length-distribution)
 - [Programs](#programs)
   - [Reference-guided algorithms](#reference-guided-algorithms)
-    - [flair](#flair)
+    - [FLAIR](#flair)
     - [bambu](#bambu)
   - [*De novo* reconstruction algorithms](#de-novo-reconstruction-algorithms)
     - [isONclust](#isonclust)
@@ -62,7 +62,7 @@ In this way we can observe that the Illumina reads are much shorter, since a sin
 As for the programmes used to carry out this benchmarking analysis, I have chosen 4 of the most recent algorithms that allow the analysis of RNA-seq data using Oxford Nanopore Technology.
 These can be divided into:
 - Reference-guided algorithms:
-  - [flair](#flair)
+  - [FLAIR](#flair)
   - [bambu](#bambu)
 - *De novo* reconstruction algorithms:
   - [isONclust](#isONclust)   
@@ -78,7 +78,7 @@ In addition to these 4 that allow the use of dRNA-seq data, I will also use [Cuf
 
 ### Reference-guided algorithms
 
-#### flair
+#### FLAIR
 
 [**FLAIR**](https://github.com/BrooksLabUCSC/flair) (Full-Length Alternative Isoform analysis of RNA) is an algorithm for the correction, isoform definition and alternative splicing analysis of noisy reads that has been used mainly for native RNA developed by [Tang et al. (2018)](https://www.biorxiv.org/content/early/2018/09/06/410183).
 FLAIR uses multiple alignment steps and splice site filters to increase confidence in the set of isoforms defined from noisy data. FLAIR was designed to be able to sense subtle splicing changes in nanopore data.
