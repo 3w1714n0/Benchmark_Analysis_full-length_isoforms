@@ -136,8 +136,7 @@ Command to quantifying:
 singularity exec flair_latest.sif python3 ./flair/flair.py quantify -r reads_manifest.tsv -i flair.collapse.isoforms.fa --trust_ends
 ```
 
-After all![bambu](https://user-images.githubusercontent.com/82102364/169703623-3ee5b0b8-672e-403a-acb1-582bf1ecff9e.png)
- the analysis, we obtain a .gtf file with all the isoforms found by FLAIR and a table with their quantification, which will be later compared with the quantifications of the sequins and the predictions made by the other programmes.
+After all the analysis, we obtain a .gtf file with all the isoforms found by FLAIR and a table with their quantification, which will be later compared with the quantifications of the sequins and the predictions made by the other programmes.
 
 ---
 
