@@ -82,10 +82,10 @@ In addition to these 4 that allow the use of dRNA-seq data, I will also use [Cuf
 
 [**FLAIR**](https://github.com/BrooksLabUCSC/flair) (Full-Length Alternative Isoform analysis of RNA) is an algorithm for the correction, isoform definition and alternative splicing analysis of noisy reads that has been used mainly for native RNA developed by [Tang et al. (2018)](https://www.biorxiv.org/content/early/2018/09/06/410183).
 FLAIR uses multiple alignment steps and splice site filters to increase confidence in the set of isoforms defined from noisy data. FLAIR was designed to be able to sense subtle splicing changes in nanopore data.
- <p align="center">
-  <img src='https://people.ucsc.edu/~atang14/flair/flair_workflow_compartmentalized.png' alt='flair workflow' width='680'/>
-</p>
- 
+
+![flair](https://user-images.githubusercontent.com/82102364/169703545-22651da2-3a6d-40f9-8cea-3e9e6af711c2.png)
+
+
 As we can see in the image above, this algorithm has multiple modules to follow, so I will therefore show below the commands I have used to carry out the analysis, but you can visit the [FLAIR repository](https://github.com/BrooksLabUCSC/flair) for further information.
 
 ##### flair align
@@ -136,13 +136,17 @@ Command to quantifying:
 singularity exec flair_latest.sif python3 ./flair/flair.py quantify -r reads_manifest.tsv -i flair.collapse.isoforms.fa --trust_ends
 ```
 
-After all the analysis, we obtain a .gtf file with all the isoforms found by FLAIR and a table with their quantification, which will be later compared with the quantifications of the sequins and the predictions made by the other programmes.
+After all![bambu](https://user-images.githubusercontent.com/82102364/169703623-3ee5b0b8-672e-403a-acb1-582bf1ecff9e.png)
+ the analysis, we obtain a .gtf file with all the isoforms found by FLAIR and a table with their quantification, which will be later compared with the quantifications of the sequins and the predictions made by the other programmes.
 
 ---
 
 #### bambu
 
 [***bambu***](https://github.com/GoekeLab/bambu) is a R package for multi-sample transcript discovery and quantification using long read RNA-Seq data. You can use bambu after read alignment to obtain expression estimates for known and novel transcripts and genes. The output from bambu can directly be used for visualisation and downstream analysis such as differential gene expression or transcript usage.
+
+![bambu](https://user-images.githubusercontent.com/82102364/169703629-e21c910d-2b06-4fd7-93fb-378595e5d2b7.png)
+
 
 To carry out the analysis using bambu, just run the [Rscript](https://github.com/3w1714n0/Benchmark_Analysis_full-length_isoforms/blob/main/RScripts/Bambu_Analysis.R).
 
