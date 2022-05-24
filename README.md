@@ -208,8 +208,20 @@ In our case:
 - reference.fa: **rnasequin_decoychr_2.4.fa**
 - reads.fq: **k562+sequins_dRNA_albacore-2.1.3.fastq**
 
-The next step is to change the format of the `aligment.sam` filo into `aligment.bam` format, by means of the [samtools program](https://github.com/samtools/samtools), using the following command:
+The next step is to change the format of the `aligment.sam` file into `aligment.bam` format, by means of the [samtools program](https://github.com/samtools/samtools), using the following command:
 
 ```bash
-samtools view -S -b aligment.sam > aligment.bam
+samtools view -S -b aligment.sam > alignment.bam
+```
+
+Next, we have to sort the bam file in genomic order with samtools:
+
+```bash
+samtools sort alignment.bam -o alignment.sorted.bam
+```
+
+And finally, index the bam file:
+
+```bash
+samtools index alignment.sorted.bam
 ```
