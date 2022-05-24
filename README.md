@@ -227,6 +227,8 @@ And finally, index the `alignment.sorted.bam` file:
 samtools index alignment.sorted.bam
 ```
 
+To facilitate the handling of Cufflinks and to apply a tool used during the degree, the following two steps have been carried out through [Galaxy Server](https://usegalaxy.org/), having available the workflow used.
+
 ---
 
 ## Preliminary Benchmark Analysis
