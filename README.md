@@ -61,7 +61,7 @@ These can be divided into:
 - Reference-guided algorithms:
   - [FLAIR](#flair)
   - [bambu](#bambu)
-  - [LIQA] (#liqa)
+  - [LIQA](#liqa)
 
 In addition to these 3 that allow the use of dRNA-seq data, I will also use [Cufflinks](#cufflinks) to highlight possible differences with isoform detection using programmes that use Illumina data as input. 
 
