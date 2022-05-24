@@ -184,7 +184,7 @@ liqa -task quantify -refgene <refgene_file> -bam <bam_file> -out <output_file> -
 In our case:
 - -refgene: **refgene_file** generated in the previous step.
 - -bam: **flair.aligned.bam**, as the reads are aligned via minimap2 and we use the same input for all programmes.
-- -max_distance: **20**, as the example shown.
+- -max_distance: **10**
 - -f_weight: **1**, as the example shown.
 
 Finally, a file with the quantification of each isoform is obtained.
