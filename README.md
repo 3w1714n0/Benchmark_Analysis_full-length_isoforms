@@ -214,13 +214,13 @@ The next step is to change the format of the `aligment.sam` file into `aligment.
 samtools view -S -b aligment.sam > alignment.bam
 ```
 
-Next, we have to sort the bam file in genomic order with samtools:
+Next, we have to sort the `alignment.bam` file in genomic order with [samtools](https://github.com/samtools/samtools):
 
 ```bash
 samtools sort alignment.bam -o alignment.sorted.bam
 ```
 
-And finally, index the bam file:
+And finally, index the `alignment.sorted.bam` file:
 
 ```bash
 samtools index alignment.sorted.bam
