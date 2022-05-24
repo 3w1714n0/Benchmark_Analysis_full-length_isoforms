@@ -231,4 +231,4 @@ samtools index alignment.sorted.bam
 
 ## Preliminary Benchmark Analysis
 
-To carry out the preliminary analysis of the reference analysis once we have managed to quantify at the isoform level with the three proposed programmes, I have generated an RScript that takes as input data from an auto-generated Excel file with the quantification data of each programme and outputs a graph comparing the quantifications of each programme with the expected quantification, available in the file `rnasequin_isoforms_2.4.tsv`.
+To carry out the preliminary analysis of the reference analysis once we have managed to quantify at the isoform level with the three proposed programmes, I have generated an RScript that takes as input data from an auto-generated Excel file with the quantisation data for each programme and outputs a graph for each algorithm comparing the quantisation of that programme with the expected quantisation, available in the file `rnasequin_isoforms_2.4.tsv`.
