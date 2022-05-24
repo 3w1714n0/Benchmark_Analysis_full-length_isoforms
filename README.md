@@ -1,5 +1,5 @@
 # Benchmark Analysis for Determining Isoforms by Nanopore Data
-Here I present the programs and the steps for carrying out a benchmark analysis for determining full-length mRNA isoforms by Nanopore RNA-seq data.
+Here I present the programs and the steps for carrying out a small benchmark pre-analysis for determining full-length mRNA isoforms by Nanopore RNA-seq data.
 
 ---
 
