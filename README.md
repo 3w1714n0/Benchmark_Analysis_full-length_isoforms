@@ -199,6 +199,8 @@ Finally, a file with the quantification of each isoform is obtained.
 #### cufflinks
 [**cufflinks**](https://github.com/cole-trapnell-lab/cufflinks) assembles transcripts, estimates their abundance and tests differential expression and regulation in RNA-Seq samples. It accepts aligned RNA-Seq reads and assembles the alignments into a parsimonious set of transcripts. Cufflinks then estimates the relative abundance of these transcripts based on the number of reads supported by each, taking into account biases in library preparation protocols.
 
+##### Preparing the data
+
 As cufflinks only accepts aligned RNA-Seq reads, we must first align the sequence obtained during sequencing with the reference genome with the [minimap2 program](https://github.com/lh3/minimap2), using the following command:
 
 ```bash
@@ -226,8 +228,9 @@ And finally, index the `alignment.sorted.bam` file:
 ```bash
 samtools index alignment.sorted.bam
 ```
+##### Running cufflinks
 
-To facilitate the handling of Cufflinks and to apply a tool used during the degree, the following two steps have been carried out through [Galaxy Server](https://usegalaxy.org/), having available the workflow used.
+To facilitate the handling of cufflinks and to apply a tool used during the degree, the following two steps have been carried out through [Galaxy Server](https://usegalaxy.org/), having available the workflow used.
 
 ---
 
