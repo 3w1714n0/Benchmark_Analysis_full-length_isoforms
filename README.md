@@ -12,7 +12,7 @@ Here I present the programs and the steps for carrying out a small benchmark pre
     - [bambu](#bambu)
     - [LIQA](#liqa)
   - [Short-read algorithm](#short-read-algorithm)
-    - [cufflinks](#cufflinks)
+    - [kallisto](#kallisto)
 - [Preliminary Benchmark Analysis](#preliminary-benchmark-analysis)
 
 ---
@@ -64,7 +64,7 @@ These can be divided into:
   - [bambu](#bambu)
   - [LIQA](#liqa)
 
-In addition to these 3 that allow the use of dRNA-seq data, I will also use [Cufflinks](#cufflinks) to highlight possible differences with isoform detection using programmes that use Illumina data as input. 
+In addition to these 3 that allow the use of dRNA-seq data, I will also use [kallisto](#kallisto) to highlight possible differences with isoform detection using programmes that use Illumina data as input. 
 
 
 > **Note:** 
@@ -92,8 +92,8 @@ Align reads.
 singularity exec flair_latest.sif python3 ./flair/flair.py align -g genome.fa -r <reads.fq.gz>|<reads.fq>|<reads.fa> -nvra -o output_aligned
 ```
 In our case:
-- -g: **rnasequin_decoychr_2.4.fa**
-- -r: **k562+sequins_dRNA_albacore-2.1.3.fastq**
+- -g: `rnasequin_decoychr_2.4.fa`
+- -r: `k562+sequins_dRNA_albacore-2.1.3.fastq`
 
 ##### flair correct
 
@@ -103,9 +103,9 @@ Correct reads using an annotation file.
 singularity exec flair_latest.sif python3 ./flair/flair.py correct -q output_aligned.bed -g genome.fa -f annotation.gtf -c chromsize.fa.fai -nvrna -o output_correct
 ```
 In our case:
-- -g: **rnasequin_decoychr_2.4.fa**
-- -f: **rnasequin_annotation_2.4.gtf**
-- -c: **rnasequin_decoychr_2.4.fa.fai**
+- -g: `rnasequin_decoychr_2.4.fa`
+- -f: `rnasequin_annotation_2.4.gtf`
+- -c: `rnasequin_decoychr_2.4.fa.fai`
 
 ##### flair collapse
 
@@ -115,9 +115,9 @@ Defines high-confidence isoforms from corrected reads.
 singularity exec flair_latest.sif python3 ./flair/flair.py collapse -g genome.fa -r <reads.fq>|<reads.fa> -f annotation.gtf -q output_corrected.bed --trust_ends
 ```
 In our case:
-- -g: **rnasequin_decoychr_2.4.fa**
-- -r: **k562+sequins_dRNA_albacore-2.1.3.fastq**
-- -f: **rnasequin_annotation_2.4.gtf**
+- -g: `rnasequin_decoychr_2.4.fa`
+- -r: `k562+sequins_dRNA_albacore-2.1.3.fastq`
+- -f: `rnasequin_annotation_2.4.gtf`
 
 ##### flair quantify
 
@@ -148,9 +148,9 @@ To carry out the analysis using bambu, just run the [Rscript](https://github.com
 > See the [bambu repository](https://github.com/GoekeLab/bambu) for further information.
 
 Once the script is executed, three files are obtained:
-- **counts_gene.txt**: a tab-delimited file with the counts per gene.
-- **counts_transcript.txt**: a tab-delimited file with counts per transcript.
-- **extended_annotations.gtf**: a tab-delimited file with the annotations made by the programme.
+- `counts_gene.txt`: a tab-delimited file with the counts per gene.
+- `counts_transcript.txt`: a tab-delimited file with counts per transcript.
+- `extended_annotations.gtf`: a tab-delimited file with the annotations made by the programme.
 
 ---
 
@@ -171,7 +171,7 @@ The first step is the transformation of isoforms into a compatible matrix based 
 liqa -task refgene -ref example.gtf -format gtf -out example.refgene
 ```
 In our case:
-- -ref: **rnasequin_annotation_2.4.gtf**
+- -ref: `rnasequin_annotation_2.4.gtf`
 
 ##### quantify
 
@@ -183,8 +183,8 @@ It is then necessary to sort and index the bam file, and give refgene_file, bam_
 liqa -task quantify -refgene <refgene_file> -bam <bam_file> -out <output_file> -max_distance <max distance> -f_weight <weight of F function>
 ```
 In our case:
-- -refgene: **refgene_file** generated in the previous step.
-- -bam: **flair.aligned.bam**, as the reads are aligned via minimap2 and we use the same input for all programmes.
+- -refgene: `refgene_file` generated in the previous step.
+- -bam: `flair.aligned.bam`, as the reads are aligned via minimap2 and we use the same input for all programmes.
 - -max_distance: **10**
 - -f_weight: **1**, as the example shown.
 
@@ -208,8 +208,8 @@ minimap2 -a reference.fa reads.fq > alignment.sam
 ```
 
 In our case: 
-- reference.fa: **rnasequin_decoychr_2.4.fa**
-- reads.fq: **k562+sequins_dRNA_albacore-2.1.3.fastq**
+- reference.fa: `rnasequin_decoychr_2.4.fa`
+- reads.fq: `k562+sequins_dRNA_albacore-2.1.3.fastq`
 
 The next step is to change the format of the `aligment.sam` file into `aligment.bam` format, by means of the [samtools program](https://github.com/samtools/samtools), using the following command:
 
@@ -233,6 +233,13 @@ samtools index alignment.sorted.bam
 To facilitate the handling of cufflinks and to apply a tool used during the degree, the following two steps have been carried out through [Galaxy Server](https://usegalaxy.org/), having available the workflow used.
 
 ---
+#### kallisto
+
+[**kallisto**](https://pachterlab.github.io/kallisto/) is a programme for quantifying transcript abundance from bulk and single-cell RNA-Seq data, or more generally from target sequences using high-throughput sequencing reads. It is based on the novel idea of pseudo-alignment to quickly determine the compatibility of reads with targets, without the need for alignment.
+
+In our case, I have used this algorithm by applying a tool used during the degrre such as [Galaxy Server](https://usegalaxy.org/) having available the workflow used, as it greatly facilitates the task.
+
+The programme takes as input the Illumina short reads and the reference genome, which in our case are `k562sequins_dRNA_albacore2.1.3.tar.gz` and `rnasequin_decoychr_2.4.fa`, respectively
 
 ## Preliminary Benchmark Analysis
 
