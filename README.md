@@ -10,9 +10,7 @@ Here I present the programs and the steps for carrying out a benchmark analysis 
   - [Reference-guided algorithms](#reference-guided-algorithms)
     - [FLAIR](#flair)
     - [bambu](#bambu)
-  - [*De novo* reconstruction algorithms](#de-novo-reconstruction-algorithms)
-    - [isONclust](#isonclust)
-    - [RATTLE](#rattle)
+    - [LIQA](#liqa)
   - [Short-read algorithm](#short-read-algorithm)
     - [cufflinks](#cufflinks)
 
@@ -58,17 +56,14 @@ In this way we can observe that the Illumina reads are much shorter, since a sin
 ---
 
 ## Programs
-
-As for the programmes used to carry out this benchmarking analysis, I have chosen 4 of the most recent algorithms that allow the analysis of RNA-seq data using Oxford Nanopore Technology.
+As for the programmes used to carry out this small benchmark pre-analysis, I have chosen 3 of the most recent algorithms that allow the analysis of RNA-seq data using the Oxford Nanopore technology, as the *de novo* reconstruction algorithms are much more complex to set up and run than the reference-guided ones.
 These can be divided into:
 - Reference-guided algorithms:
   - [FLAIR](#flair)
   - [bambu](#bambu)
-- *De novo* reconstruction algorithms:
-  - [isONclust](#isONclust)   
-  - [RATTLE](#rattle)
+  - [LIQA] (#liqa)
 
-In addition to these 4 that allow the use of dRNA-seq data, I will also use [Cufflinks](#cufflinks) to highlight possible differences with isoform detection using programmes that use Illumina data as input. 
+In addition to these 3 that allow the use of dRNA-seq data, I will also use [Cufflinks](#cufflinks) to highlight possible differences with isoform detection using programmes that use Illumina data as input. 
 
 
 > **Note:** 
@@ -158,23 +153,45 @@ Once the script is executed, three files are obtained:
 
 ---
 
-### *De novo* reconstruction algorithms
+#### LIQA
 
-#### isONclust
-[**isONclust**](https://github.com/ksahlin/isONclust) is a tool for clustering either PacBio Iso-Seq reads, or Oxford Nanopore reads into clusters, where each cluster represents all reads that came from a gene. Output is a tsv file with each read assigned to a cluster-ID. Detailed information is available in the [GitHub website](https://github.com/ksahlin/isONclust) and in the [paper](https://link.springer.com/chapter/10.1007/978-3-030-17083-7_14).
+[**LIQA**](https://github.com/WGLab/LIQA)(Long-read Isoform Quantification and Analysis) is an Expectation-Maximization based statistical method to quantify isoform expression and detect differential alternative splicing (DAS) events using long-read RNA-seq data. LIQA incorporates base-pair quality score and isoform-specific read length information to assign different weights across reads instead of summarizing isoform-specific read counts directly. Moreover, LIQA can detect DAS events between conditions using isoform usage estimates.
 
-After the installation of the programme following the steps described in the [programme repository](https://github.com/ksahlin/isONclust), the execution of the analysis with this software is very simple. To do so, simply execute the following command:
+![Imagen1](https://user-images.githubusercontent.com/82102364/170011191-16c4c45b-7d18-4028-ae78-15f5160b0d4e.png)
+
+
+To perform the analysis using LIQA, two steps must be carried out:
+
+##### refgene
+
+The first step is the transformation of isoforms into a compatible matrix based on a reference annotation file. In our case we will use the command for gtf files, although there is also an option for files in ucsc format.
 
 ```bash
-isONclust --ont --fastq reads.fastq --outfolder /path/to/output 
+liqa -task refgene -ref example.gtf -format gtf -out example.refgene
 ```
-
 In our case:
-- --fastq: **k562+sequins_dRNA_albacore-2.1.3.fastq**
+- -ref: **rnasequin_annotation_2.4.gtf**
 
-Once the analysis is finished, a . tsv file is obtained (`final_clusters.tsv`) in the directory we have indicated where the first column is the cluster ID and the second the read accession.
+##### quantify
 
-#### RATTLE
+The next step is to quantify the expression of the isoforms. Although it is recommended to filter the bam file reads, this has not been done, as it has not been done with any of the above algorithms.
+
+It is then necessary to sort and index the bam file, and give refgene_file, bam_file to LIQA to estimate isoform expression:
+
+```bash
+liqa -task quantify -refgene <refgene_file> -bam <bam_file> -out <output_file> -max_distance <max distance> -f_weight <weight of F function>
+```
+In our case:
+- -refgene: **refgene_file** generated in the previous step.
+- -bam: **flair.aligned.bam**, as the reads are aligned via minimap2 and we use the same input for all programmes.
+- -max_distance: **20**, as the example shown.
+- -f_weight: **1**, as the example shown.
+
+Finally, a file with the quantification of each isoform is obtained.
+
+> See the [LIQA repository](https://github.com/WGLab/LIQA) for further information.
+
+---
 
 ### Short-read algorithm
 
