@@ -13,6 +13,7 @@ Here I present the programs and the steps for carrying out a small benchmark pre
     - [LIQA](#liqa)
   - [Short-read algorithm](#short-read-algorithm)
     - [cufflinks](#cufflinks)
+- [Preliminary Benchmark Analysis](#preliminary-benchmark-analysis)
 
 ---
 
@@ -225,3 +226,9 @@ And finally, index the `alignment.sorted.bam` file:
 ```bash
 samtools index alignment.sorted.bam
 ```
+
+---
+
+## Preliminary Benchmark Analysis
+
+To carry out the preliminary analysis of the reference analysis once we have managed to quantify at the isoform level with the three proposed programmes, I have generated an RScript that takes as input data from an auto-generated Excel file with the quantification data of each programme and outputs a graph comparing the quantifications of each programme with the expected quantification, available in the file `rnasequin_isoforms_2.4.tsv`.
