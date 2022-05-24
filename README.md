@@ -239,7 +239,9 @@ To facilitate the handling of cufflinks and to apply a tool used during the degr
 
 In our case, I have used this algorithm by applying a tool used during the degrre such as [Galaxy Server](https://usegalaxy.org/) having available the workflow used, as it greatly facilitates the task.
 
-The programme takes as input the Illumina short reads and the reference genome, which in our case are `k562sequins_dRNA_albacore2.1.3.tar.gz` and `rnasequin_decoychr_2.4.fa`, respectively
+The programme takes as input the Illumina short reads and the reference genome, which in our case are `k562sequins_dRNA_albacore2.1.3.tar.gz` and `rnasequin_decoychr_2.4.fa`, respectively.
+
+---
 
 ## Preliminary Benchmark Analysis
 
