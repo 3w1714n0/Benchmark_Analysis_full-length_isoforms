@@ -12,7 +12,7 @@ Here I present the programs and the steps for carrying out a small benchmark pre
     - [bambu](#bambu)
     - [LIQA](#liqa)
   - [Short-read algorithm](#short-read-algorithm)
-    - [kallisto](#kallisto)
+    - [HTSeq](#htseq)
 - [Preliminary Benchmark Analysis](#preliminary-benchmark-analysis)
 
 ---
@@ -64,7 +64,7 @@ These can be divided into:
   - [bambu](#bambu)
   - [LIQA](#liqa)
 
-In addition to these 3 that allow the use of dRNA-seq data, I will also use [kallisto](#kallisto) to highlight possible differences with isoform detection using programmes that use Illumina data as input. 
+In addition to these 3 that allow the use of dRNA-seq data, I will also use [HTSeq](#htseq) to highlight possible differences with isoform detection using programmes that use Illumina data as input. 
 
 
 > **Note:** 
@@ -89,7 +89,7 @@ As we can see in the image above, this algorithm has multiple modules to follow,
 Align reads.
 
 ```bash
-singularity exec flair_latest.sif python3 ./flair/flair.py align -g genome.fa -r <reads.fq.gz>|<reads.fq>|<reads.fa> -nvra -o output_aligned
+singularity exec flair_latest.sif python3 ./flair/flair.py align -g <genome.fa> -r <reads.fq.gz>|<reads.fq>|<reads.fa> -nvra -o <output_aligned>
 ```
 In our case:
 - -g: `rnasequin_decoychr_2.4.fa`
@@ -100,7 +100,7 @@ In our case:
 Correct reads using an annotation file.
 
 ```bash
-singularity exec flair_latest.sif python3 ./flair/flair.py correct -q output_aligned.bed -g genome.fa -f annotation.gtf -c chromsize.fa.fai -nvrna -o output_correct
+singularity exec flair_latest.sif python3 ./flair/flair.py correct -q <output_aligned.bed> -g <genome.fa> -f <annotation.gtf> -c <chromsize.fa.fai> -nvrna -o <output_correct>
 ```
 In our case:
 - -g: `rnasequin_decoychr_2.4.fa`
@@ -112,7 +112,7 @@ In our case:
 Defines high-confidence isoforms from corrected reads.
 
 ```bash
-singularity exec flair_latest.sif python3 ./flair/flair.py collapse -g genome.fa -r <reads.fq>|<reads.fa> -f annotation.gtf -q output_corrected.bed --trust_ends
+singularity exec flair_latest.sif python3 ./flair/flair.py collapse -g <genome.fa> -r <reads.fq>|<reads.fa> -f <annotation.gtf> -q <output_corrected.bed> --trust_ends
 ```
 In our case:
 - -g: `rnasequin_decoychr_2.4.fa`
@@ -129,7 +129,7 @@ sample1 conditionA  batch1  ./sample1_reads.fq
 Command to quantifying:
 
 ```bash
-singularity exec flair_latest.sif python3 ./flair/flair.py quantify -r reads_manifest.tsv -i flair.collapse.isoforms.fa --trust_ends
+singularity exec flair_latest.sif python3 ./flair/flair.py quantify -r <reads_manifest.tsv> -i <flair.collapse.isoforms.fa> --trust_ends
 ```
 
 After all the analysis, we obtain a .gtf file with all the isoforms found by FLAIR and a table with their quantification, which will be later compared with the quantifications of the sequins and the predictions made by the other programmes.
@@ -168,7 +168,7 @@ To perform the analysis using LIQA, two steps must be carried out:
 The first step is the transformation of isoforms into a compatible matrix based on a reference annotation file. In our case we will use the command for gtf files, although there is also an option for files in ucsc format.
 
 ```bash
-liqa -task refgene -ref example.gtf -format gtf -out example.refgene
+liqa -task refgene -ref <example.gtf> -format gtf -out <example.refgene><
 ```
 In our case:
 - -ref: `rnasequin_annotation_2.4.gtf`
@@ -196,53 +196,42 @@ Finally, a file with the quantification of each isoform is obtained.
 
 ### Short-read algorithm
 
-#### cufflinks
-[**cufflinks**](https://github.com/cole-trapnell-lab/cufflinks) assembles transcripts, estimates their abundance and tests differential expression and regulation in RNA-Seq samples. It accepts aligned RNA-Seq reads and assembles the alignments into a parsimonious set of transcripts. Cufflinks then estimates the relative abundance of these transcripts based on the number of reads supported by each, taking into account biases in library preparation protocols.
+#### HTSeq
 
-##### Preparing the data
+[**HTSeq**](https://htseq.readthedocs.io/en/release_0.11.1/overview.html) is a Python package that provides infrastructure to process data from high-throughput sequencing assays. It also has a script (htseq-count) which takes a GTF file with gene/transcript models and a SAM file and counts for each gene/transcript how many reads map to it.
 
-As cufflinks only accepts aligned RNA-Seq reads, we must first align the sequence obtained during sequencing with the reference genome with the [minimap2 program](https://github.com/lh3/minimap2), using the following command:
+In our case, I have used this algorithm instead of Cufflinks as stated in the report, as I have had great difficulty running Cufflinks and HTSeq is the second most used programme to quantify genes/transcripts from short reads, so for a first analysis it is more than sufficient.
 
-```bash
-minimap2 -a reference.fa reads.fq > alignment.sam
-```
-
-In our case: 
-- reference.fa: `rnasequin_decoychr_2.4.fa`
-- reads.fq: `k562+sequins_dRNA_albacore-2.1.3.fastq`
-
-The next step is to change the format of the `aligment.sam` file into `aligment.bam` format, by means of the [samtools program](https://github.com/samtools/samtools), using the following command:
+First we have to align the Illumina reads with a reference genome, using [minimap2](https://github.com/lh3/minimap2):
 
 ```bash
-samtools view -S -b aligment.sam > alignment.bam
+minimap2 -a ref.fa query.fq > alignment.sam
 ```
+In our case:
+- -a: `rnasequin_decoychr_2.4.fa`
+- query.fq: `K562_SequinMixA.Rep2.R1.fq`
 
-Next, we have to sort the `alignment.bam` file in genomic order with [samtools](https://github.com/samtools/samtools):
+Once we have the `alignment.sam`, we can run htseq-count:
 
 ```bash
-samtools sort alignment.bam -o alignment.sorted.bam
+htseq-count --idattr transcript_id <aligment_file> <gff_file>
 ```
 
-And finally, index the `alignment.sorted.bam` file:
-
-```bash
-samtools index alignment.sorted.bam
-```
-##### Running cufflinks
-
-To facilitate the handling of cufflinks and to apply a tool used during the degree, the following two steps have been carried out through [Galaxy Server](https://usegalaxy.org/), having available the workflow used.
-
----
-#### kallisto
-
-[**kallisto**](https://pachterlab.github.io/kallisto/) is a programme for quantifying transcript abundance from bulk and single-cell RNA-Seq data, or more generally from target sequences using high-throughput sequencing reads. It is based on the novel idea of pseudo-alignment to quickly determine the compatibility of reads with targets, without the need for alignment.
-
-In our case, I have used this algorithm by applying a tool used during the degrre such as [Galaxy Server](https://usegalaxy.org/) having available the workflow used, as it greatly facilitates the task.
-
-The programme takes as input the Illumina short reads and the reference genome, which in our case are `k562sequins_dRNA_albacore2.1.3.tar.gz` and `rnasequin_decoychr_2.4.fa`, respectively.
+In our case:
+- alignment_file: `alignment.sam`, previously generated.
+- gff_file: `rnasequin_annotation_2.4.gtf`
 
 ---
 
 ## Preliminary Benchmark Analysis
 
-To carry out the preliminary analysis of the reference analysis once we have managed to quantify at the isoform level with the three proposed programmes, I have generated an RScript that takes as input data from an auto-generated Excel file with the quantisation data for each programme and outputs a graph for each algorithm comparing the quantisation of that programme with the expected quantisation, available in the file `rnasequin_isoforms_2.4.tsv`.
+To carry out the preliminary analysis of the reference analysis once we have managed to quantify at the isoform level with the three proposed programmes (and HTSeq for comparison), I have generated an [RScript](https://github.com/3w1714n0/Benchmark_Analysis_full-length_isoforms/blob/main/RScripts/Benchmark.R) that takes as input data from an auto-generated [Excel file](https://github.com/3w1714n0/Benchmark_Analysis_full-length_isoforms/blob/main/Counts%20per%20transcript.xlsx) with the quantisation data for each programme and outputs a graph for each algorithm comparing the quantisation of that programme with the expected quantification, available in the file `rnasequin_isoforms_2.4.tsv`.
+
+In this way we obtain the following results:
+
+![Results](https://user-images.githubusercontent.com/82102364/170256249-93023296-0b97-4bbb-804e-e8287dab5052.png)
+
+In the file with the expected quantifications, there are a total of 160 isoforms. Bambu, FLAIR and LIQA were able to quantify 82 (51.25%), 59 (36.88%) and 78 (48.75%) isoforms respectively, with each algorithm showing a respective correlation of 0.57, 0.7 and 0.41 (Fig. 4). Meanwhile, HTSeq can quantify 75 isoforms (46.88%) with a correlation of 0.43. 
+
+With these results we can see that programs such as FLAIR are not able to quantify even half of the isoforms, but those that it is able to detect do so quite accurately. On the other hand, bambu and LIQA quantify about 50% of the transcripts with moderate accuracy. What is interesting is that both these last two algorithms and FLAIR show a higher correlation (or very similar in the case of LIQA) with that obtained by HTSeq, which reinforces our initial hypothesis, since methods using
+long reads show, a priori, better, or similar precision than methods using short reads.
