@@ -235,3 +235,5 @@ In the file with the expected quantifications, there are a total of 160 isoforms
 
 With these results we can see that programs such as FLAIR are not able to quantify even half of the isoforms, but those that it is able to detect do so quite accurately. On the other hand, bambu and LIQA quantify about 50% of the transcripts with moderate accuracy. What is interesting is that both these last two algorithms and FLAIR show a higher correlation (or very similar in the case of LIQA) with that obtained by HTSeq, which reinforces our initial hypothesis, since methods using
 long reads show, a priori, better, or similar precision than methods using short reads.
+
+However, the accuracies are not as good as they should be, so one would expect that for the de novo reconstruction algorithms these accuracies would be even worse, discovering even fewer transcripts. 
