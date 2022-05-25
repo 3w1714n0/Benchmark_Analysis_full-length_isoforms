@@ -227,11 +227,11 @@ In our case:
 
 To carry out the preliminary analysis of the reference analysis once we have managed to quantify at the isoform level with the three proposed programmes (and HTSeq for comparison), I have generated an [RScript](https://github.com/3w1714n0/Benchmark_Analysis_full-length_isoforms/blob/main/RScripts/Benchmark.R) that takes as input data from an auto-generated [Excel file](https://github.com/3w1714n0/Benchmark_Analysis_full-length_isoforms/blob/main/Counts%20per%20transcript.xlsx) with the quantisation data for each programme and outputs a graph for each algorithm comparing the quantisation of that programme with the expected quantification, available in the file `rnasequin_isoforms_2.4.tsv`.
 
-In this way we obtain the following results:
+In this way we obtain the following plot:
 
 ![Results](https://user-images.githubusercontent.com/82102364/170256249-93023296-0b97-4bbb-804e-e8287dab5052.png)
 
-In the file with the expected quantifications, there are a total of 160 isoforms. Bambu, FLAIR and LIQA were able to quantify 82 (51.25%), 59 (36.88%) and 78 (48.75%) isoforms respectively, with each algorithm showing a respective correlation of 0.57, 0.7 and 0.41 (Fig. 4). Meanwhile, HTSeq can quantify 75 isoforms (46.88%) with a correlation of 0.43. 
+In the file with the expected quantifications, there are a total of 160 isoforms. Bambu, FLAIR and LIQA were able to quantify 82 (51.25%), 59 (36.88%) and 78 (48.75%) isoforms respectively, with each algorithm showing a respective correlation of 0.57, 0.7 and 0.41. Meanwhile, HTSeq can quantify 75 isoforms (46.88%) with a correlation of 0.43. 
 
 With these results we can see that programs such as FLAIR are not able to quantify even half of the isoforms, but those that it is able to detect do so quite accurately. On the other hand, bambu and LIQA quantify about 50% of the transcripts with moderate accuracy. What is interesting is that both these last two algorithms and FLAIR show a higher correlation (or very similar in the case of LIQA) with that obtained by HTSeq, which reinforces our initial hypothesis, since methods using
 long reads show, a priori, better, or similar precision than methods using short reads.
