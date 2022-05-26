@@ -6,6 +6,7 @@ Here I present the programs and the steps for carrying out a small benchmark pre
 ## Table of Contents
 - [Input data](#input-data)
   - [Read Length Distribution](#read-length-distribution)
+  - [Coverage](#coverage)
 - [Programs](#programs)
   - [Reference-guided algorithms](#reference-guided-algorithms)
     - [FLAIR](#flair)
@@ -44,6 +45,8 @@ Once I obtained the length of the reads and their frequencies, using an [RScript
 ![Edited](https://user-images.githubusercontent.com/82102364/165273650-11073efd-c725-4a63-af37-ec31b0036f86.png)
 
 We can observe that the difference in the average read lengths, since, while for Illumina we have a large number of reads of the same size (125 bp) for Nanopore we obtain a much lower performance, with fewer reads, but of a much greater length (917 bp), although it is true that the variability is very wide, obtaining reads ranging from 5 bp to ~3 kb, but for our preliminary analysis this is fine.
+
+### Coverage
 
 In addition, I have performed an alignment of Illumina short reads and Nanopore long reads against the isoform reference in order to observe the differences in coverage and read length between the two methods.
 
